@@ -30,3 +30,29 @@ label {
   margin: 3px 0;
 }
 
+form {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+input, textarea {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+input::placeholder, textarea::placeholder {
+  font-size: 13px;
+  color: rgb(177, 174, 174);
+}
+
+.submitButton {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: teal;
+  cursor: pointer;
+}

@@ -34,7 +34,7 @@ function App() {
 
   const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
-    setViewState({...viewState, latitude: lat, longitude: long}) //...viewState, means everything inside this object will remain the same, кроме того что мы указываем после запятой.
+    setViewState({ ...viewState, latitude: lat, longitude: long }) //...viewState, means everything inside this object will remain the same, кроме того что мы указываем после запятой.
   }
 
   const handleAddClick = (e) => {  //e for event
@@ -42,7 +42,7 @@ function App() {
     let lat = e.lngLat.lat;
     let lng = e.lngLat.lng;
 
-    setNewPlace ({
+    setNewPlace({
       lat: lat,
       lng: lng
     });
@@ -109,7 +109,25 @@ function App() {
             anchor="left"
             closeOnClick={false}
             onClose={() => setNewPlace(null)}
-          >Test</Popup>
+          >
+            <div>
+              <form>
+                <label>Title</label>
+                <input placeholder="Enter a title" />
+                <label>Review</label>
+                <textarea placeholder="Tell us about this place." />
+                <label>Rating</label>
+                <select>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <button className="submitButton" type="submit">Add Pin</button>
+              </form>
+            </div>
+          </Popup>
         )}
       </Map>
     </div>

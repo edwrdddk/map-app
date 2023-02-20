@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { useState, useEffect} from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -14,12 +13,16 @@ function App() {
   const [pins, setPins] = React.useState([]);
   const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
   const [newPlace, setNewPlace] = React.useState(null);
+  const [title, setTitle] = React.useState(null);
+  const [desc, setDesc] = React.useState(null);
+  const [rating, setRaiting] = React.useState(0);
   const [viewState, setViewState] = React.useState({
     longitude: 30,
     latitude: 50,
     zoom: 3.5
   });
 
+//fetching pins from backend 
   React.useEffect(() => {
     const getPins = async () => {
       try {
@@ -34,10 +37,10 @@ function App() {
 
   const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
-    setViewState({ ...viewState, latitude: lat, longitude: long }) //...viewState, means everything inside this object will remain the same, кроме того что мы указываем после запятой.
+    setViewState({ ...viewState, latitude: lat, longitude: long });
   }
 
-  const handleAddClick = (e) => {  //e for event
+  const handleAddClick = (e) => { 
     //console.log(e);
     let lat = e.lngLat.lat;
     let lng = e.lngLat.lng;
@@ -46,6 +49,26 @@ function App() {
       lat: lat,
       lng: lng
     });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPin = {
+      username: currentUser,
+      title: title,
+      desc: desc,
+      rating: rating,
+      lat: newPlace.lat,
+      long: newPlace.lng
+    }
+
+    try {
+      const responce = await axios.post("/pins", newPin);
+      setPins([...pins, responce.data]);
+      setNewPlace(null);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -88,11 +111,7 @@ function App() {
                   <p className="desc">{p.desc}</p>
                   <label>Rating</label>
                   <div className="Stars">
-                    <StarIcon className="star" />
-                    <StarIcon className="star" />
-                    <StarIcon className="star" />
-                    <StarIcon className="star" />
-                    <StarIcon className="star" />
+                    {Array(p.rating).fill(<StarIcon className="star" />)}
                   </div>
                   <label>Information</label>
                   <span className="username">Created by <b>{p.username}</b></span>
@@ -111,13 +130,19 @@ function App() {
             onClose={() => setNewPlace(null)}
           >
             <div>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <label>Title</label>
-                <input placeholder="Enter a title" />
+                <input
+                  placeholder="Enter a title"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
                 <label>Review</label>
-                <textarea placeholder="Tell us about this place." />
+                <textarea
+                  placeholder="Tell us about this place."
+                  onChange={(e) => setDesc(e.target.value)}
+                />
                 <label>Rating</label>
-                <select>
+                <select onChange={(e) => setRaiting(e.target.value)}>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>

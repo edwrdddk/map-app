@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import axios from "axios";
 
-export default function Register() {
+export default function Register({setShowRegister}) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const nameRef = useRef();
@@ -42,7 +42,7 @@ export default function Register() {
         <button className="registerBtn">Register</button>
         {success && <span className="success">Nice. You can log in now.</span>}
         {error && <span className="failure">Ups. Something went wrong.</span>}
-        <CloseIcon className="registerCancel"/>
+        <CloseIcon className="registerCancel" onClick={()=>setShowRegister(false)}/>
       </form>
     </div>
   )

@@ -1,3 +1,7 @@
+.mapboxgl-popup-close-button {
+  font-size: 22px;
+}
+
 .card {
   width: 250px;
   height: 250px;
@@ -6,8 +10,12 @@
   justify-content: space-around;
 }
 
+.place {
+  font-size: 16px;
+}
+
 .desc {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .star {
@@ -15,17 +23,17 @@
 }
 
 .username {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .date {
-  font-size: 13px;
+  font-size: 15px;
 }
 
 label {
   width: max-content;
   color: teal;
-  font-size: 14px;
+  font-size: 16px;
   border-bottom: 0.5px solid teal;
   margin: 3px 0;
 }
@@ -44,7 +52,7 @@ input, textarea {
 }
 
 input::placeholder, textarea::placeholder {
-  font-size: 13px;
+  font-size: 15px;
   color: rgb(177, 174, 174);
 }
 
@@ -56,3 +64,32 @@ input::placeholder, textarea::placeholder {
   background-color: teal;
   cursor: pointer;
 }
+
+.button {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.logout {
+  background-color: teal;
+}
+
+.login {
+  background-color: slateblue;
+  margin-right: 5px;
+}
+
+.register {
+  background-color: #B3005E;
+}
+
+.dumDiv, .logout {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+

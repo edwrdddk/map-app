@@ -6,10 +6,11 @@ import StarIcon from '@mui/icons-material/Star';
 import "./app.css";
 import axios from "axios";
 import { format } from "timeago.js";
+import Register from './components/Register';
 
 
 function App() {
-  const currentUser = "Jake";
+  const [currentUser, setCurrentUser] = React.useState(null);
   const [pins, setPins] = React.useState([]);
   const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
   const [newPlace, setNewPlace] = React.useState(null);
@@ -22,7 +23,7 @@ function App() {
     zoom: 3.5
   });
 
-//fetching pins from backend 
+  //fetching pins from backend 
   React.useEffect(() => {
     const getPins = async () => {
       try {
@@ -40,7 +41,7 @@ function App() {
     setViewState({ ...viewState, latitude: lat, longitude: long });
   }
 
-  const handleAddClick = (e) => { 
+  const handleAddClick = (e) => {
     //console.log(e);
     let lat = e.lngLat.lat;
     let lng = e.lngLat.lng;
@@ -75,7 +76,7 @@ function App() {
     <div className="App">
       <Map
         {...viewState}
-        // container={"map"}
+        container={"map"}
         // projection={"globe"}
         onMove={evt => setViewState(evt.viewState)}
         style={{ width: "100vw", height: "100vh" }}
@@ -89,7 +90,7 @@ function App() {
             <Marker latitude={p.lat} longitude={p.long}>
               <PlaceIcon
                 style={{
-                  fontSize: viewState.zoom * 8,
+                  fontSize: viewState.zoom * 9,
                   color: p.username === currentUser ? "#B3005E" : "slateblue",
                   cursor: "pointer"
                 }}
@@ -154,11 +155,18 @@ function App() {
             </div>
           </Popup>
         )}
+        {currentUser ? (
+          <button className="button logout">Log out</button>
+        ) : (
+          <div className="dumDiv">
+            <button className="button login">Login</button>
+            <button className="button register">Register</button>
+          </div>
+        )}
+        <Register />
       </Map>
     </div>
   );
 }
 
 export default App;
-
-//test

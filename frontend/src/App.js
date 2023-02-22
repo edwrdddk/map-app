@@ -11,7 +11,8 @@ import Login from './components/Login';
 
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState(null);
+  const myStorage = window.localStorage;
+  const [currentUser, setCurrentUser] = React.useState(myStorage.getItem("user"));
   const [pins, setPins] = React.useState([]);
   const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
   const [newPlace, setNewPlace] = React.useState(null);
@@ -73,6 +74,11 @@ function App() {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  const handleLogout = () => {
+    myStorage.removeItem("user");
+    setCurrentUser(null);
   }
 
   return (
@@ -159,15 +165,21 @@ function App() {
           </Popup>
         )}
         {currentUser ? (
-          <button className="button logout">Log out</button>
+          <button className="button logout" onClick={handleLogout}>Log out</button>
         ) : (
           <div className="dumDiv">
-            <button className="button login" onClick={()=>setShowLogin(true)}>Login</button>
-            <button className="button register" onClick={()=>setShowRegister(true)}>Register</button>
+            <button className="button login" onClick={() => setShowLogin(true)}>Login</button>
+            <button className="button register" onClick={() => setShowRegister(true)}>Register</button>
           </div>
         )}
         {showRegister && <Register setShowRegister={setShowRegister} />}
-        {showLogin && <Login setShowLogin={setShowLogin} />}
+        {showLogin && (
+          <Login
+            setShowLogin={setShowLogin}
+            myStorage={myStorage}
+            setCurrentUser={setCurrentUser}
+          />
+        )}
       </Map>
     </div>
   );

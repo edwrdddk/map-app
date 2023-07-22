@@ -5,7 +5,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import StarIcon from '@mui/icons-material/Star';
 import "./app.css";
 import axios from "axios";
-import { format } from "timeago.js";
+// import { format } from "timeago.js";
 import Register from './components/Register';
 import Login from './components/Login';
 
@@ -125,7 +125,7 @@ function App() {
                   </div>
                   <label>Information</label>
                   <span className="username">Created by <b>{p.username}</b></span>
-                  <span className="date">{format(p.createdAt)}</span>
+                  {/* <span className="date">{format(p.createdAt)}</span> */}
                 </div>
               </Popup>
             }
